@@ -1,3 +1,5 @@
 <div class="container">
-  <div class="dropzone" id="droptarget" (drop)="dropped($event)"></div>
+  <div class="dropzone" id="droptarget" (drop)="dropped($event)"
+    (dragover)="dragOver($event)"></div>
+  <input size="20"> 
 </div>

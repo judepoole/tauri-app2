@@ -1,5 +1,6 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { invoke } from "@tauri-apps/api/tauri";
+import { listen } from "@tauri-apps/api/event";
 
 @Component({
   selector: "app-root",
@@ -10,8 +11,27 @@ import { invoke } from "@tauri-apps/api/tauri";
 export class AppComponent {
   greetingMessage = "";
 
+/*
+  onInit() {
+    listen("tauri://file-drop", event => {
+      console.log("fd event", event);
+    });
+  }
+  */
+
   dropped(event: any): void {
+    event.preventDefault();
     console.log("received drop", event);
+    event.dataTransfer.items[0].getAsString( (s: any)  => {
+      console.log("got string " + s);
+    });
+  }
+
+  dragOver(event: any): void {
+    //console.log("dragOver called with event: ", event);
+    console.log("dragOver called");
+    event.stopPropagation();
+    event.preventDefault();
   }
 
   greet(name: string): void {
